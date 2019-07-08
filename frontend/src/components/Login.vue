@@ -35,13 +35,13 @@ export default {
       let formData = new URLSearchParams()
       formData.append('username', this.username)
       formData.append('password', this.password)
-      this.$axios.post('/mark', formData)
+      this.$axios.post('/checkID', formData)
         .then(res => {
           console.log(res.data)
           if (res.data === 'LOGIN_SUCCESS') {
-            this.$router.push('/')
+            this.$router.back(-1)
             sessionStorage.setItem('username', this.username)
-            this.$store.dispatch('login')
+            this.$store.dispatch('logIn')
           }
         })
         .catch((error) => {

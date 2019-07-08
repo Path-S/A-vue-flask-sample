@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask,render_template,request
+from flask import Flask,render_template,request,session
 app = Flask(__name__,
             static_folder = "../../dist/static",
             template_folder = "../../dist")
-
+app.secret_key = 'any random string'
 
 
 @app.route("/", defaults={"path": ""})
@@ -14,7 +14,7 @@ def index(path):
     print (type(path))
     return render_template("index.html")
 
-@app.route('/mark', methods=['POST'])
+@app.route('/checkID', methods=['POST'])
 def sendAjax2():
     # password = request.form.get('password')
     # username = request.args.get('username')
@@ -26,8 +26,9 @@ def sendAjax2():
     if (len(username) == 0):
         res = "LOGIN_ERROE_EMPTY_USERNAME"
     elif (username==password): 
+        session['username'] = username
         res = "LOGIN_SUCCESS"
-    else:
+    else:        
         res = "LOGIN_FAILED"
     return res
 

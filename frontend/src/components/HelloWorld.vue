@@ -21,7 +21,7 @@ export default {
   methods: {
     logOut () {
       sessionStorage.removeItem('username')
-      this.$store.dispatch('logout')
+      this.$store.dispatch('logOut')
       window.location.reload()
     }
   }

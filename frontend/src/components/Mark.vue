@@ -1,7 +1,12 @@
 <template>
-    <div v-bind:class="{mark: 1}">
-        <ul>{{usrname}}'s score is {{ score }}</ul>
+    <div class="mark" v-if="isLoggedin">
+        <ul>{{username}}'s score is {{ score }}</ul>
     </div>
+    <div class="mark" v-else>
+        <ul>Please login first ! </ul>
+        <button @click="logIn">logIn</button>
+    </div>
+
 </template>
 
 <script>
@@ -10,7 +15,17 @@ export default {
   data () {
     return {
       score: 90,
-      usrname: 'sunlu'
+      usrname: '',
+      isLoggedin: false
+    }
+  },
+  mounted () {
+    this.username = sessionStorage.getItem('username')
+    this.isLoggedin = this.$store.getters.isLoggedin
+  },
+  methods: {
+    logIn () {
+      this.$router.push('/login')
     }
   }
 }
@@ -18,7 +33,7 @@ export default {
 
 <style>
   .mark{
-    text-align: left;
+    text-align: center;
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     margin: 50;
     padding: 50;
